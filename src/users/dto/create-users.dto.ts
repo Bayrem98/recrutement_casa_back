@@ -1,4 +1,4 @@
-export interface Users {
+export default class CreateUsersDto {
   nom: string;
   prenom: string;
   num_cin: string;

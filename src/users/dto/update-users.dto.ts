@@ -44,7 +44,7 @@ export default class UpdateUsersDto {
   @IsOptional()
   experi?: string;
   @IsOptional()
-  question1?: boolean;
+  question1?: string;
   @IsOptional()
   question2?: string;
   @IsOptional()

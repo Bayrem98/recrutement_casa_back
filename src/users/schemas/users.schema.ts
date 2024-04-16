@@ -33,8 +33,8 @@ export class Users {
   specia?: string;
   @Prop({ require: true, type: String })
   experi: string;
-  @Prop({ require: true, type: Boolean })
-  question1: boolean;
+  @Prop({ require: true, type: String })
+  question1: string;
   @Prop({ require: true, type: String })
   question2: string;
   @Prop({ require: true, type: String })

@@ -13,7 +13,7 @@ export default class CreateUsersDto {
   niveau: string;
   specia?: string;
   experi: string;
-  question1: boolean;
+  question1: string;
   question2: string;
   question3: string;
   cover_cv: string;

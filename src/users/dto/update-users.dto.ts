@@ -51,4 +51,6 @@ export default class UpdateUsersDto {
   question3?: string;
   @IsOptional()
   cover_cv?: string;
+  @IsOptional()
+  status?: string;
 }

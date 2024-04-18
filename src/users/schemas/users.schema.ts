@@ -41,6 +41,8 @@ export class Users {
   question3: string;
   @Prop({ require: true, type: String })
   cover_cv: string;
+  @Prop({ type: String })
+  status?: string;
 }
 
 export const UsersSchema = SchemaFactory.createForClass(Users);

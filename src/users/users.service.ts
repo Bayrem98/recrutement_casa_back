@@ -1,12 +1,15 @@
 import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
-import { Model } from 'mongoose';
+import { Model, Types } from 'mongoose';
 import { Users, UsersDocument } from './schemas/users.schema';
 import CreateUsersDto from './dto/create-users.dto';
 import UpdateUsersDto from './dto/update-users.dto';
 
 @Injectable()
 export class UsersService {
+  async search(status: string) {
+    return this.usersModel.find({ status }).exec();
+  }
   constructor(
     @InjectModel(Users.name) private usersModel: Model<UsersDocument>,
   ) {}
@@ -40,5 +43,32 @@ export class UsersService {
 
   async delete(id: string): Promise</*DeleteResult*/ any> {
     return this.usersModel.deleteOne({ _id: id });
+  }
+
+  async changeStatus(id: string, updateUsersDto: Users): Promise<Users> {
+    const isValidObjectId = Types.ObjectId.isValid(id);
+
+    if (!isValidObjectId) {
+      throw new HttpException('Invalid user ID', HttpStatus.BAD_REQUEST);
+    }
+    try {
+      const result = await this.usersModel.findOneAndUpdate(
+        { _id: id },
+        { $set: updateUsersDto },
+        { new: true },
+      );
+
+      if (!result) {
+        throw new HttpException('Ouvrier not found', HttpStatus.NOT_FOUND);
+      }
+
+      return result;
+    } catch (error) {
+      console.error('Error in updateReclam:', error);
+      throw new HttpException(
+        'Failed to update ouvrier reclamation',
+        HttpStatus.INTERNAL_SERVER_ERROR,
+      );
+    }
   }
 }

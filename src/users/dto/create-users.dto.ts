@@ -17,5 +17,5 @@ export default class CreateUsersDto {
   question2: string;
   question3: string;
   cover_cv: string;
-  status?: string;
+  status?: { status: string; color: string };
 }

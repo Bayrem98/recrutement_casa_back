@@ -45,7 +45,10 @@ export class UsersService {
     return this.usersModel.deleteOne({ _id: id });
   }
 
-  async changeStatus(id: string, updateUsersDto: Users): Promise<Users> {
+  async changeStatus(
+    id: string,
+    status: { status: string; color: string },
+  ): Promise<Users> {
     const isValidObjectId = Types.ObjectId.isValid(id);
 
     if (!isValidObjectId) {
@@ -54,19 +57,19 @@ export class UsersService {
     try {
       const result = await this.usersModel.findOneAndUpdate(
         { _id: id },
-        { $set: updateUsersDto },
+        { status: status }, // Mettez à jour le champ status avec l'objet contenant à la fois l'état et la couleur
         { new: true },
       );
 
       if (!result) {
-        throw new HttpException('Ouvrier not found', HttpStatus.NOT_FOUND);
+        throw new HttpException('User not found', HttpStatus.NOT_FOUND);
       }
 
       return result;
     } catch (error) {
-      console.error('Error in updateReclam:', error);
+      console.error('Error in updateStatus:', error);
       throw new HttpException(
-        'Failed to update ouvrier reclamation',
+        'Failed to update user status',
         HttpStatus.INTERNAL_SERVER_ERROR,
       );
     }

@@ -48,8 +48,8 @@ export class UsersController {
   @Put('changestatus/:id')
   changeStatus(
     @Param('id') id: string,
-    @Body() updateUsersDto: UpdateUsersDto,
+    @Body() status: { status: string; color: string },
   ): Promise<Users> {
-    return this.usersService.update(id, updateUsersDto);
+    return this.usersService.update(id, status);
   }
 }

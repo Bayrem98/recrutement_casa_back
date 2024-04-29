@@ -47,6 +47,8 @@ export class Users {
     default: { status: '', color: '' },
   })
   status: { status: string; color: string };
+  @Prop({ require: true, type: String })
+  categorie: string;
 }
 
 export const UsersSchema = SchemaFactory.createForClass(Users);

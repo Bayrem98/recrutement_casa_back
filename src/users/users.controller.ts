@@ -17,11 +17,22 @@ import UpdateUsersDto from './dto/update-users.dto';
 export class UsersController {
   constructor(private readonly usersService: UsersService) {}
   @Get()
-  findAll(@Query('status') status: string) {
-    if (!status) return this.usersService.findAll();
-    return this.usersService.search(status);
-  }
+  findAll(
+    @Query('status') status: string,
+    @Query('categorie') categorie: string,
+  ) {
+    if (!status && !categorie) {
+      return this.usersService.findAll();
+    }
 
+    if (status && categorie) {
+      return this.usersService.search(status);
+    } else if (status) {
+      return this.usersService.search(status);
+    } else if (categorie) {
+      return this.usersService.search1(categorie);
+    }
+  }
   @Get(':id')
   findOne(@Param('id') _id: string) {
     return this.usersService.findOne(_id);

@@ -10,6 +10,9 @@ export class UsersService {
   async search(status: string) {
     return this.usersModel.find({ status }).exec();
   }
+  async search1(categorie: string) {
+    return this.usersModel.find({ categorie }).exec();
+  }
   constructor(
     @InjectModel(Users.name) private usersModel: Model<UsersDocument>,
   ) {}

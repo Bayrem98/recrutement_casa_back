@@ -19,4 +19,5 @@ export interface Users {
   cover_cv: string;
   status?: { status: string; color: string };
   categorie: string;
+  rdv?: string | null;
 }

@@ -55,4 +55,6 @@ export default class UpdateUsersDto {
   status?: string;
   @IsOptional()
   categorie?: string;
+  @IsOptional()
+  rdv?: string | null;
 }

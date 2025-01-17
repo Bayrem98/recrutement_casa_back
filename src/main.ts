@@ -7,6 +7,9 @@ async function bootstrap() {
       origin: '*',
     },
   });
-  await app.listen(3001);
+  // Utilisez le port dynamique fourni par l'environnement, ou 3000 par défaut
+  const port = process.env.PORT || 3000;
+  await app.listen(port);
+  console.log(`Application is running on: http://localhost:${port}`);
 }
 bootstrap();

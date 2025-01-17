@@ -13,14 +13,14 @@ import { MailService } from './mail.service';
       useFactory: (config: ConfigService) => ({
         transport: {
           host: config.get<string>('EMAIL_HOST'),
-          port: config.get<number>('PORT'),
+          port: config.get<number>('EMAIL_PORT'),
           auth: {
             user: config.get<string>('EMAIL_USER'),
             pass: config.get<string>('EMAIL_PASSWORD'),
           },
         },
         defaults: {
-          from: '"Support" <no-reply@example.com>',
+          from: `"Support" <${config.get<string>('EMAIL_USER')}>`,
         },
         template: {
           dir: __dirname + '/templates',

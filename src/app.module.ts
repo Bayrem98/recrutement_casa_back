@@ -10,10 +10,11 @@ import { CloudinaryModule } from './cloudinary/cloudinary.module';
 import { ConfigModule } from '@nestjs/config';
 import { ServeStaticModule } from '@nestjs/serve-static';
 import { join } from 'path';
+import { MailModule } from './mail/mail.module';
 
 @Module({
   imports: [
-    ConfigModule.forRoot(),
+    ConfigModule.forRoot({ isGlobal: true }),
     // MongooseModule.forRoot(`${process.env.MONGODB_URI}`),
     MongooseModule.forRoot(
       `mongodb+srv://${process.env.MONGODB_USER}:${process.env.MONGODB_PASSWORD}@${process.env.MONGODB_CLUSTER}.gjbdf3j.mongodb.net/${process.env.MONGODB_DATABASE}?retryWrites=true&w=majority`,
@@ -26,6 +27,7 @@ import { join } from 'path';
     AuthModule,
     UploadModule,
     CloudinaryModule,
+    MailModule,
   ],
   controllers: [AppController],
   providers: [AppService],

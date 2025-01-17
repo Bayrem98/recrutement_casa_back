@@ -4,18 +4,20 @@ import { Model, Types } from 'mongoose';
 import { Users, UsersDocument } from './schemas/users.schema';
 import CreateUsersDto from './dto/create-users.dto';
 import UpdateUsersDto from './dto/update-users.dto';
+import { MailService } from '../mail/mail.service';
 
 @Injectable()
 export class UsersService {
+  constructor(
+    @InjectModel(Users.name) private usersModel: Model<UsersDocument>,
+    private readonly mailService: MailService, // Injecte le service Mail
+  ) {}
   async search(status: string) {
     return this.usersModel.find({ status }).exec();
   }
   async search1(categorie: string) {
     return this.usersModel.find({ categorie }).exec();
   }
-  constructor(
-    @InjectModel(Users.name) private usersModel: Model<UsersDocument>,
-  ) {}
 
   async findOne(_id: string): Promise<Users> {
     return await this.usersModel.findOne({ _id }).select('-password').exec();
@@ -30,11 +32,20 @@ export class UsersService {
   }
 
   async create(createUsersDto: CreateUsersDto): Promise<Users> {
-    const user = await this.findOneByUsername(createUsersDto.nom);
-    if (user)
-      throw new HttpException('Username already used', HttpStatus.BAD_REQUEST);
-    const createdUser = new this.usersModel(createUsersDto);
-    return createdUser.save();
+    const existingUser = await this.usersModel.findOne({
+      email: createUsersDto.email,
+    });
+    if (existingUser) {
+      throw new HttpException('Email déjà utilisé', HttpStatus.BAD_REQUEST);
+    }
+
+    const user = new this.usersModel(createUsersDto);
+    const savedUser = await user.save();
+
+    // Envoie un email de confirmation après la création
+    await this.mailService.sendUserConfirmation(savedUser.email, savedUser.nom);
+
+    return savedUser;
   }
 
   async update(

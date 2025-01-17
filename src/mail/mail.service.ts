@@ -10,14 +10,14 @@ export class MailService {
       await this.mailerService.sendMail({
         to: email,
         subject: 'Votre candidature a été reçue',
-        template: './confirmation', // Fichier Handlebars : confirmation.hbs
+        template: '../mail/templates/confirmation.hbs', // Fichier Handlebars : confirmation.hbs
         context: {
           nom, // Variable injectée dans le template
         },
       });
       console.log('Email envoyé avec succès');
     } catch (error) {
-      console.error('Erreur lors de l\'envoi de l\'email:', error.message);
+      console.error("Erreur lors de l'envoi de l'email:", error.message);
     }
   }
 }

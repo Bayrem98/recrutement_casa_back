@@ -15,12 +15,15 @@ export class GmailMailService {
     });
   }
 
-  async sendUserConfirmation(email: string, nom: string) {
+  async sendUserConfirmation(email: string, nom: string, prenom: string) {
     const msg = {
       to: email,
-      from: 'Support <votre-email@gmail.com>',
-      subject: 'Votre candidature a été reçue',
-      text: `Bonjour ${nom}, votre candidature a été reçue.`,
+      from: 'Société ASTRAGALE & ULYSSE',
+      subject: 'Votre candidature',
+      text: `Bonjour ${nom} ${prenom}
+      Votre candidature a été reçue avec succès. Nous allons traiter votre
+      demande et vous contacter sous peu.
+      Merci de votre confiance`,
     };
 
     try {

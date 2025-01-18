@@ -46,6 +46,7 @@ export class UsersService {
     await this.gmailMailService.sendUserConfirmation(
       savedUser.email,
       savedUser.nom,
+      savedUser.prenom,
     );
 
     return savedUser;

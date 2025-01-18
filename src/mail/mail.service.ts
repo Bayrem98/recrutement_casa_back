@@ -16,6 +16,9 @@ export class GmailMailService {
   }
 
   async sendUserConfirmation(email: string, nom: string, prenom: string) {
+    if (!email) {
+      throw new Error('No recipients defined');
+    }
     const msg = {
       to: email,
       from: 'Société ASTRAGALE & ULYSSE <votre-email@gmail.com>',

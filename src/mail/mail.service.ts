@@ -23,8 +23,10 @@ export class GmailMailService {
       text: `Bonjour ${nom} ${prenom}
       
       Votre candidature a été reçue avec succès.
+
       Nous allons traiter votre demande et vous 
       contacter sous peu.
+
       Merci de votre confiance`,
     };
 

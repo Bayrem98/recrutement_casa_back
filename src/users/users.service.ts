@@ -4,13 +4,13 @@ import { Model, Types } from 'mongoose';
 import { Users, UsersDocument } from './schemas/users.schema';
 import CreateUsersDto from './dto/create-users.dto';
 import UpdateUsersDto from './dto/update-users.dto';
-import { MailService } from '../mail/mail.service';
+import { GmailMailService } from 'src/mail/mail.service';
 
 @Injectable()
 export class UsersService {
   constructor(
     @InjectModel(Users.name) private usersModel: Model<UsersDocument>,
-    private readonly mailService: MailService, // Injecte le service Mail
+    private readonly gmailMailService: GmailMailService, // Injecte le service Mail
   ) {}
   async search(status: string) {
     return this.usersModel.find({ status }).exec();
@@ -43,7 +43,10 @@ export class UsersService {
     const savedUser = await user.save();
 
     // Envoie un email de confirmation après la création
-    await this.mailService.sendUserConfirmation(savedUser.email, savedUser.nom);
+    await this.gmailMailService.sendUserConfirmation(
+      savedUser.email,
+      savedUser.nom,
+    );
 
     return savedUser;
   }

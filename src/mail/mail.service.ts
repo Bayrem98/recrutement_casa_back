@@ -32,7 +32,7 @@ export class GmailMailService {
 
     try {
       await this.transporter.sendMail(msg);
-      alert('Votre Candidature a été reçue, Voir ta boite mail. Merci');
+      console.log('Votre Candidature a été reçue, Voir ta boite mail. Merci');
       console.log('Email envoyé avec succès');
     } catch (error) {
       console.error("Erreur lors de l'envoi de l'email:", error.message);

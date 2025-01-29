@@ -43,6 +43,11 @@ export class UsersController {
     return this.usersService.create(createUsersDto);
   }
 
+  @Post('sendmail')
+  created(@Body() createUsersDto: CreateUsersDto): Promise<Users> {
+    return this.usersService.create(createUsersDto);
+  }
+
   @Put(':id')
   update(
     @Param('id') id: string,

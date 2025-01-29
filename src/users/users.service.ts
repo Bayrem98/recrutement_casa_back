@@ -32,11 +32,6 @@ export class UsersService {
   }
 
   async create(createUsersDto: CreateUsersDto): Promise<Users> {
-    const createdUser = new this.usersModel(createUsersDto);
-    return createdUser.save();
-  }
-
-  async created(createUsersDto: CreateUsersDto): Promise<Users> {
     const existingUser = await this.usersModel.findOne({
       email: createUsersDto.email,
     });

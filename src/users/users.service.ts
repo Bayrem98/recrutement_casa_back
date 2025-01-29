@@ -32,24 +32,8 @@ export class UsersService {
   }
 
   async create(createUsersDto: CreateUsersDto): Promise<Users> {
-    const existingUser = await this.usersModel.findOne({
-      email: createUsersDto.email,
-    });
-    if (existingUser) {
-      throw new HttpException('Email déjà utilisé', HttpStatus.BAD_REQUEST);
-    }
-
-    const user = new this.usersModel(createUsersDto);
-    const savedUser = await user.save();
-
-    // Envoie un email de confirmation après la création
-    await this.gmailMailService.sendUserConfirmation(
-      savedUser.email,
-      savedUser.nom,
-      savedUser.prenom,
-    );
-
-    return savedUser;
+    const createdUser = new this.usersModel(createUsersDto);
+    return createdUser.save();
   }
 
   async created(createUsersDto: CreateUsersDto): Promise<Users> {

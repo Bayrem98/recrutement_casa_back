@@ -10,7 +10,6 @@
     "start": "node dist/main",
     "build": "nest build && npm run copy-templates",
     "copy-templates": "cp -R src/mail/templates dist/mail/templates",
-    "copy-public": "copyfiles -u 1 src/public/**/* dist/public",
     "format": "prettier --write \"src/**/*.ts\" \"test/**/*.ts\"",
     "start:dev": "nest start --watch",
     "start:debug": "nest start --debug --watch",

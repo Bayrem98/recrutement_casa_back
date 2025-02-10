@@ -63,4 +63,12 @@ export class UsersController {
   ): Promise<Users> {
     return this.usersService.update(id, status);
   }
+
+  @Put('appointments/:id')
+  async fixrdv(
+    @Param('id') id: string,
+    @Body() dateRDV: string,
+  ): Promise<Users> {
+    return this.usersService.fixrdv(id, dateRDV);
+  }
 }

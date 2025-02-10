@@ -19,5 +19,5 @@ export default class CreateUsersDto {
   cover_cv: string;
   status?: { status: string; color: string };
   categorie: string;
-  rdv?: string | null;
+  dateRDV?: string;
 }

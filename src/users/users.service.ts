@@ -92,4 +92,31 @@ export class UsersService {
       );
     }
   }
+
+  async fixrdv(id: string, dateRDV: string): Promise<any> {
+    const isValidObjectId = Types.ObjectId.isValid(id);
+
+    if (!isValidObjectId) {
+      throw new HttpException('Invalid user ID', HttpStatus.BAD_REQUEST);
+    }
+    try {
+      const result = await this.usersModel.findOneAndUpdate(
+        { _id: id },
+        { dateRDV: dateRDV },
+        { new: true },
+      );
+
+      if (!result) {
+        throw new HttpException('User not found', HttpStatus.NOT_FOUND);
+      }
+
+      return result;
+    } catch (error) {
+      console.error('Error in fixrdv:', error);
+      throw new HttpException(
+        'Failed to update user dateRDV',
+        HttpStatus.INTERNAL_SERVER_ERROR,
+      );
+    }
+  }
 }

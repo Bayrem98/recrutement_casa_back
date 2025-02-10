@@ -56,5 +56,5 @@ export default class UpdateUsersDto {
   @IsOptional()
   categorie?: string;
   @IsOptional()
-  rdv?: string | null;
+  dateRDV?: string;
 }
